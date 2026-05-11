@@ -1,37 +1,8 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { SchemaPost } from './post.schema'
-import axios from 'axios'
-import { type SchemaPostType, type RegistrationResult } from './post.types'
-import { REGISTRATION_STATUS_MESSAGES } from './post.messages'
+import { usePostModel } from "./post.model"
 
 export default function App() {
-  const [alert, setAlert] = useState<RegistrationResult | null>(null)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<SchemaPostType>({
-    resolver: zodResolver(SchemaPost),
-  })
-
-  const { mutate } = useMutation<string, AxiosError, SchemaPostType>({
-    mutationFn: async (data) => {
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts/1', data)
-      return response.data
-    },
-    onError: () => {
-      setAlert(REGISTRATION_STATUS_MESSAGES.error)
-    },
-    onSuccess: () => {
-      setAlert(REGISTRATION_STATUS_MESSAGES.success)
-
-    },
-  })
+  const {alert, errors, handleSubmit, mutate, isSubmitting, register} =  usePostModel()
 
   return (
     <div style={{ maxWidth: 480, margin: '48px auto', padding: '0 16px' }}>
