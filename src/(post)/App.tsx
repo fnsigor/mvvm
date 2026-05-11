@@ -3,21 +3,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { z } from 'zod'
+import { SchemaPost } from './post.schema'
 import axios from 'axios'
-
-const SchemaPost = z.object({
-  titulo: z.string().min(1, 'Título obrigatório'),
-  conteudo: z.string().min(1, 'Conteúdo obrigatório'),
-})
-
-type SchemaPostType = z.infer<typeof SchemaPost>
-
-type RegistrationResult = {
-  status: 'error' | 'success'
-  title: string
-  description: string
-}
+import { type SchemaPostType, type RegistrationResult } from './post.types'
 
 export default function App() {
   const [alert, setAlert] = useState<RegistrationResult | null>(null)
