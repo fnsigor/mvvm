@@ -6,7 +6,8 @@ import {
 import { usePostModel } from "./post.model";
 import { PostView } from "./post.view";
 
-export default function App() {
+//esse componente é a view-model
+export default function PostPage() {
   const httpClient = HttpClient.create("https://jsonplaceholder.typicode.com");
 
   const createPostService = new CreatePostService(httpClient);
