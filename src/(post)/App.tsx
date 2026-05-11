@@ -6,6 +6,7 @@ import { AxiosError } from 'axios'
 import { SchemaPost } from './post.schema'
 import axios from 'axios'
 import { type SchemaPostType, type RegistrationResult } from './post.types'
+import { REGISTRATION_STATUS_MESSAGES } from './post.messages'
 
 export default function App() {
   const [alert, setAlert] = useState<RegistrationResult | null>(null)
@@ -24,18 +25,11 @@ export default function App() {
       return response.data
     },
     onError: () => {
-      setAlert({
-        status: 'error',
-        title: 'Oops...',
-        description: 'Ocorreu um erro durante seu cadastro.',
-      })
+      setAlert(REGISTRATION_STATUS_MESSAGES.error)
     },
     onSuccess: () => {
-      setAlert({
-        status: 'success',
-        title: 'Bem vindo à plataforma!',
-        description: 'Você vai receber um email de confirmação em breve.',
-      })
+      setAlert(REGISTRATION_STATUS_MESSAGES.success)
+
     },
   })
 
