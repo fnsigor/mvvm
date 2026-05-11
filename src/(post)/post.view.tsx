@@ -18,17 +18,17 @@ export const PostView = (props: PostViewProps) => {
 
       <form onSubmit={handleSubmit((data) => mutate(data))} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div>
-          <label htmlFor="titulo">Título</label>
+          <label htmlFor="title">Título</label>
           <br />
-          <input id="titulo" {...register('titulo')} style={{ width: '100%', padding: 8, marginTop: 4 }} />
-          {errors.titulo && <span style={{ color: 'red', fontSize: 12 }}>{errors.titulo.message}</span>}
+          <input id="title" {...register('title')} style={{ width: '100%', padding: 8, marginTop: 4 }} />
+          {errors.title && <span style={{ color: 'red', fontSize: 12 }}>{errors.title.message}</span>}
         </div>
 
         <div>
-          <label htmlFor="conteudo">Conteúdo</label>
+          <label htmlFor="body">Conteúdo</label>
           <br />
-          <textarea id="conteudo" rows={4} {...register('conteudo')} style={{ width: '100%', padding: 8, marginTop: 4 }} />
-          {errors.conteudo && <span style={{ color: 'red', fontSize: 12 }}>{errors.conteudo.message}</span>}
+          <textarea id="body" rows={4} {...register('body')} style={{ width: '100%', padding: 8, marginTop: 4 }} />
+          {errors.body && <span style={{ color: 'red', fontSize: 12 }}>{errors.body.message}</span>}
         </div>
 
         <button type="submit" disabled={isSubmitting} style={{ padding: '10px 20px', cursor: 'pointer' }}>

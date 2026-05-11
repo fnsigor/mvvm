@@ -4,12 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { SchemaPost } from './post.schema'
-import axios from 'axios'
 import type { SchemaPostType, RegistrationResult } from './post.types'
 import { REGISTRATION_STATUS_MESSAGES } from './post.messages'
+import type { ICreatePostService } from '../service/posts/post.service'
 
 
-export const usePostModel = () => {
+
+type PostModelProps = {
+  createPostService: ICreatePostService
+}
+
+export const usePostModel = ({ createPostService }: PostModelProps) => {
   const [alert, setAlert] = useState<RegistrationResult | null>(null)
 
   const {
@@ -22,8 +27,7 @@ export const usePostModel = () => {
 
   const { mutate } = useMutation<string, AxiosError, SchemaPostType>({
     mutationFn: async (data) => {
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts/1', data)
-      return response.data
+      return createPostService.exec(data)
     },
     onError: () => {
       setAlert(REGISTRATION_STATUS_MESSAGES.error)
